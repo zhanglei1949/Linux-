@@ -25,16 +25,111 @@ cat ${filename}
 # -n 以显示行号
 cat -n ${filename}
 ```
-## more
-### 提供一页一页的显示方式，按空格键向下一页，Enter键向下一行，Q键退出
+## more and Less
+### 提供一页一页的显示方式，按空格键向下一页，Enter键向下一行，Q键退出。less 功能与more相似但更强大
 ```
 more ${filename}
 ```
-## less
-### 功能与more相似但更强大
-## head
-## tail
+## 
+
+## head and tail
+### 分别用于显示文本开头或者末尾的内容，-n指定显示地行数，如不指定则是默认行数
+```
+head -n ${filename}
+```
 
 #文件（夹）操作
+## pwd
+### 显示当前路径
+## cd
+```
+cd   #进入用户主目录
+cd - #进入上一个目录
+cd ~ #进入用户主目录
+cd / #进入根目录
+cd ..#进入上级目录
+```
+## ls
+```
+ls -l  #列出当前目录下文件及其属性
+ls -a  #列出当前目录下所有文件，包括隐藏文件
+ls ${path/to\dir} #列出指定目录下的文件
+```
+## chmod and chown
+```
+chown [-R] ${username} ${file or directory}
+```
+chmod 用于改变文件权限设置
+```
+chmod [-R] 777 ${filename}
+```
 
-## 查找
+
+
+
+# 查找
+## grep
+### grep(global search regular expression) 可以用于查找文件中的关键词
+```
+grep -n ${target string} ${filename}
+grep -r ${target string} *    #在当前目录下递归搜索包含指定字符串的文件
+grep -l -r ${target string} * #在当前目录下递归搜索包含指定字符串的文件,只显示文件名
+```
+### 正则表达式
+http://www.cnblogs.com/ggjucheng/archive/2013/01/13/2856896.html
+## 查找文件 find,locate,whereis
+```
+find ${path} -name ${ketword} -print [- type d(目录)/f(文件)]
+locate ${filename}
+whereis   # used to find executable files
+```
+
+# 获取帮助
+```
+man ${command}
+```
+
+# 输出
+
+### 输出重定向 >
+``` 
+ls > ls.log #覆盖
+ls > ls.log #追加
+```
+
+# 管道
+### |
+```
+ls | grep sy  # 将左边的输出进行处理和筛选再输出
+```
+
+# 进程管理
+### 杀死进程
+```
+ps aux | grep ${keyword}  # 列出包含keyword的进程
+kill ${process id}
+kill -9 $(process id}     # 强制kill
+```
+# 磁盘
+
+
+# 软件包
+## APT(Advanced Package Tool)
+### 常用的两个命令，apt-get 和 apt-cache。 前者安装软件包，后者用于查找相关信息。
+```
+apt-get update
+apt-get install ${package}
+apt-get upgrade
+apt-get remove[autoremove]
+apt-get clean                #删除已下载的包文件
+
+apt-cache search ${package name}
+```
+###apt-get 的安装源以文件的形式存放在/etc/apt/sources.list中
+## dpkg
+### dpkg是运行于ubuntu和debian系统上的包管理器，安装包以.deb结尾。
+```
+dpkg [--force] [-i(nstall)] ${package}
+dpkg -l | grep ${ketword}
+dpkg --remove ${package}
+```
