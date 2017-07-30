@@ -133,3 +133,12 @@ dpkg [--force] [-i(nstall)] ${package}
 dpkg -l | grep ${ketword}
 dpkg --remove ${package}
 ```
+
+
+# io 状态监测
+## iostat：首次运行命令时显示系统自启动以来的统计数据，之后运行显示的是自上次运行以来的信息。
+```
+iostat -d -k 2 # -d表示显示磁盘使用状态，-k表示以kb为单位，每隔2秒刷新一次
+-x 显示扩展数据
+-c 显示cpu数据
+```
